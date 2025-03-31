@@ -1,15 +1,14 @@
 import Header from "../../config/defaultLayout/components/Header"
 import BookList from "./components/BookList"
-import { useLocalStorage } from '@uidotdev/usehooks';
+import ToList from '../../server/ToList'
 
-const Books = () => {
-    const [books, setBooks] = useLocalStorage('books', [])
-    
+const Books =  () => {
+    const data = ToList()
+
     return (
         <>  
             <Header title='Lista de livros'/>
-            <BookList data={books} 
-            setBooks={setBooks}/>     
+            <BookList data={data}/> 
         </>
 
     )

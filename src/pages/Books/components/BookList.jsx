@@ -4,20 +4,23 @@ import ListItemText from '@mui/material/ListItemText';
 import { Divider, IconButton, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import React from 'react';
+import React  from 'react';
 import { useNavigate } from 'react-router-dom';
 import formatDate from '../../../util/formatDate';
+import toDelete from '../../../server/toDelete';
+
+
 
 const BookList = (props) => {
     const navigate = useNavigate();
-
     
     const deleteBooks = (id) =>{
     const confirmDelete = window.confirm('Deseja deletar o livro?')
 
        if(confirmDelete){
-        props.setBooks(props.data.filter(item => item.id !== id))
+        toDelete(id);
         alert('Livro deletado com sucesso')
+        navigate('/books')
        }
     }
 
@@ -28,7 +31,7 @@ const BookList = (props) => {
         <>  
             <List sx={{ boxShadow: '2', backgroundColor: '#eeeeee',}}>
 
-           { props.data.length ? props.data.map((item) => {
+           { props.data.length ?props.data.map((item) => {
                 return (
                     <React.Fragment key={item.id}>
                         <ListItem sx={{ maxWidth: '100%', padding: '1rem', gap:'2rem' }}> 

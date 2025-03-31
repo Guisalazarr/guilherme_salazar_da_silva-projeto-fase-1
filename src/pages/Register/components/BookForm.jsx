@@ -5,27 +5,27 @@ import { useState } from "react";
 import generateId from "../../../util/generateId.js";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import create from "../../../server/create.js";
 
 
-const BookForm = (props) => {
+const BookForm = () => {
 
     const navigate = useNavigate()
-  
 
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
-    const [gender, setGender] = useState('')
-    const [date, setDate] = useState('')
+    const [genre, setGenre] = useState('')
+    const [readAt, setReadAt] = useState('')
     const [valid, setValid] = useState(false)
 
 
     useEffect(() => {
-        if (title.length < 2 && author.length < 2 && gender.length < 2, date.length < 2) {
+        if (title.length < 2 && author.length < 2 && genre.length < 2, readAt.length < 2) {
           setValid(true);
         } else {
           setValid(false);
         }
-      }, [title, author, gender, date]);
+      }, [title, author, genre, readAt]);
 
       
     const createBook = () => {
@@ -33,11 +33,10 @@ const BookForm = (props) => {
             id: generateId(),
             title,
             author,
-            gender,
-            date
+            genre,
+            readAt
         }
-
-    props.setBooks([...props.books, newBook])
+    create(newBook);
     alert('Livro adicionado com sucesso')
     navigate('/books')
     }
@@ -52,10 +51,10 @@ const BookForm = (props) => {
           value={author} onChange={(e)=> setAuthor(e.target.value)}/>
 
           <TextField id="outlined-basic" label="Gênero" type="text" variant="outlined" fullWidth 
-          value={gender} onChange={(e)=> setGender(e.target.value)}/>
+          value={genre} onChange={(e)=> setGenre(e.target.value)}/>
 
           <TextField id="outlined-basic"  type="date" variant="outlined" fullWidth 
-          value={date} onChange={(e)=> setDate(e.target.value)}/>
+          value={setReadAt} onChange={(e)=> setReadAt(e.target.value)}/>
 
           <Button variant="contained" size="large" onClick={createBook} disabled={valid} fullWidth>Adicionar</Button>
        </BoxStyled>
